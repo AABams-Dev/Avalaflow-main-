@@ -25,6 +25,56 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const originalError = console.error;
+                const originalWarn = console.warn;
+                
+                // Intercept console errors/warnings from extensions
+                console.error = function(...args) {
+                  const msg = args.join(' ');
+                  if (msg.includes('chrome-extension://') || msg.includes('extension') || msg.includes('ethereum')) {
+                    return;
+                  }
+                  originalError.apply(console, args);
+                };
+
+                console.warn = function(...args) {
+                  const msg = args.join(' ');
+                  if (msg.includes('chrome-extension://') || msg.includes('extension')) {
+                    return;
+                  }
+                  originalWarn.apply(console, args);
+                };
+
+                // Catch uncaught runtime errors from extensions
+                window.addEventListener('error', function(event) {
+                  if (event.filename && event.filename.includes('chrome-extension://')) {
+                    event.stopImmediatePropagation();
+                    event.preventDefault();
+                  }
+                  if (event.message && (event.message.includes('chrome.runtime') || event.message.includes('ethereum'))) {
+                    event.stopImmediatePropagation();
+                    event.preventDefault();
+                  }
+                }, true);
+
+                // Catch unhandled promise rejections from extensions
+                window.addEventListener('unhandledrejection', function(event) {
+                  const reason = event.reason && event.reason.stack ? event.reason.stack : '';
+                  if (reason.includes('chrome-extension://')) {
+                    event.stopImmediatePropagation();
+                    event.preventDefault();
+                  }
+                }, true);
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
