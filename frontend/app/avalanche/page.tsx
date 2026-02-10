@@ -32,7 +32,7 @@ export default function AvalanchePage() {
                         <div className="bg-white p-8 rounded-3xl shadow-soft border border-gray-100">
                             <div className="w-12 h-12 bg-avax-red/10 rounded-2xl flex items-center justify-center text-avax-red text-2xl mb-6">💰</div>
                             <h3 className="text-xl font-bold mb-4">Low Fees</h3>
-                            <p className="text-gray-500">Avalanche's efficient architecture ensures that minting and leveling up your units costs only fractions of a dollar.</p>
+                            <p className="text-gray-500">Avalanche&apos;s efficient architecture ensures that minting and leveling up your units costs only fractions of a dollar.</p>
                         </div>
                         <div className="bg-white p-8 rounded-3xl shadow-soft border border-gray-100">
                             <div className="w-12 h-12 bg-avax-red/10 rounded-2xl flex items-center justify-center text-avax-red text-2xl mb-6">🌿</div>

@@ -1,7 +1,6 @@
 'use client'
 import { useParams } from 'next/navigation'
 import { Navbar } from '@/components/Navbar'
-import { useState } from 'react'
 import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadContract } from 'wagmi'
 import { AVALAFLOW_NFT_ADDRESS, AVALAFLOW_NFT_ABI } from '@/lib/contracts'
 
@@ -103,7 +102,7 @@ export default function ScanPage() {
 
                     {mintError && (
                         <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl break-all">
-                            Error: {(mintError as any).shortMessage || mintError.message}
+                            Error: {(mintError as { shortMessage?: string }).shortMessage || mintError.message}
                         </div>
                     )}
 

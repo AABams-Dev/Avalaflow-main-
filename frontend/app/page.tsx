@@ -51,7 +51,7 @@ export default function Home() {
               Digital <span className="text-avax-red">Souls</span> for <span className="text-avax-red-dark underline decoration-avax-red/20 underline-offset-8">Physical</span> Relics.
             </h1>
             <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
-              Avalaflow bridges the gap between your physical workspace and the digital realm. Scan, mint, and level up your collectors items on the world's fastest blockchain.
+              Avalaflow bridges the gap between your physical workspace and the digital realm. Scan, mint, and level up your collectors items on the world&apos;s fastest blockchain.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -152,8 +152,8 @@ export default function Home() {
 
                     {/* Badge */}
                     <div className={`absolute top-4 right-4 z-20 backdrop-blur-md px-4 py-2 rounded-2xl text-[10px] font-black uppercase tracking-[0.1em] shadow-lg border border-white/50 ${figure.status === 'available'
-                        ? 'bg-green-500/10 text-green-600'
-                        : 'bg-gray-500/10 text-gray-500'
+                      ? 'bg-green-500/10 text-green-600'
+                      : 'bg-gray-500/10 text-gray-500'
                       }`}>
                       <div className="flex items-center gap-2">
                         <span className={`w-1.5 h-1.5 rounded-full ${figure.status === 'available' ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`} />

@@ -24,7 +24,7 @@ export default function TermsPage() {
                         <section>
                             <h2 className="text-xl font-bold text-gray-900 mb-4">2. Digital Ownership</h2>
                             <p>
-                                When you scan an authentic Avalaflow unit and mint an NFT, you gain true digital ownership of that specific unit's twin. This ownership is recorded on the Avalanche blockchain and is subject to the rules of the smart contracts deployed by Avalaflow.
+                                When you scan an authentic Avalaflow unit and mint an NFT, you gain true digital ownership of that specific unit&apos;s twin. This ownership is recorded on the Avalanche blockchain and is subject to the rules of the smart contracts deployed by Avalaflow.
                             </p>
                         </section>
 
@@ -45,7 +45,7 @@ export default function TermsPage() {
                         <section>
                             <h2 className="text-xl font-bold text-gray-900 mb-4">5. Limitation of Liability</h2>
                             <p>
-                                Avalaflow provides its services "as is." We are not liable for any losses resulting from blockchain network congestion, smart contract vulnerabilities, or user error.
+                                Avalaflow provides its services &quot;as is.&quot; We are not liable for any losses resulting from blockchain network congestion, smart contract vulnerabilities, or user error.
                             </p>
                         </section>
                     </div>
