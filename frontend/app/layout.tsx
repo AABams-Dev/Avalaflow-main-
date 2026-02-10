@@ -33,39 +33,58 @@ export default function RootLayout({
                 const originalError = console.error;
                 const originalWarn = console.warn;
                 
-                // Intercept console errors/warnings from extensions
+                // Intercept console errors/warnings from extensions and third-party noise
                 console.error = function(...args) {
-                  const msg = args.join(' ');
-                  if (msg.includes('chrome-extension://') || msg.includes('extension') || msg.includes('ethereum')) {
+                  const msg = args.join(' ').toLowerCase();
+                  if (
+                    msg.includes('chrome-extension://') || 
+                    msg.includes('extension') || 
+                    msg.includes('ethereum') ||
+                    msg.includes('cross-origin-opener-policy') ||
+                    msg.includes('coop')
+                  ) {
                     return;
                   }
                   originalError.apply(console, args);
                 };
 
                 console.warn = function(...args) {
-                  const msg = args.join(' ');
-                  if (msg.includes('chrome-extension://') || msg.includes('extension')) {
+                  const msg = args.join(' ').toLowerCase();
+                  if (
+                    msg.includes('chrome-extension://') || 
+                    msg.includes('extension') ||
+                    msg.includes('cross-origin-opener-policy')
+                  ) {
                     return;
                   }
                   originalWarn.apply(console, args);
                 };
 
-                // Catch uncaught runtime errors from extensions
+                // Catch uncaught runtime errors
                 window.addEventListener('error', function(event) {
-                  if (event.filename && event.filename.includes('chrome-extension://')) {
-                    event.stopImmediatePropagation();
-                    event.preventDefault();
-                  }
-                  if (event.message && (event.message.includes('chrome.runtime') || event.message.includes('ethereum'))) {
+                  const fileName = event.filename || '';
+                  const message = (event.message || '').toLowerCase();
+                  
+                  if (
+                    fileName.includes('chrome-extension://') || 
+                    message.includes('chrome.runtime') || 
+                    message.includes('ethereum') ||
+                    message.includes('cross-origin-opener-policy') ||
+                    message.includes('getter') // Captures the 'only has a getter' error
+                  ) {
                     event.stopImmediatePropagation();
                     event.preventDefault();
                   }
                 }, true);
 
-                // Catch unhandled promise rejections from extensions
+                // Catch unhandled promise rejections
                 window.addEventListener('unhandledrejection', function(event) {
-                  const reason = event.reason && event.reason.stack ? event.reason.stack : '';
-                  if (reason.includes('chrome-extension://')) {
+                  const reason = event.reason?.stack || event.reason?.message || '';
+                  const msg = reason.toLowerCase();
+                  if (
+                    msg.includes('chrome-extension://') ||
+                    msg.includes('cross-origin-opener-policy')
+                  ) {
                     event.stopImmediatePropagation();
                     event.preventDefault();
                   }
