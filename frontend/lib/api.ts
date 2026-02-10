@@ -22,17 +22,22 @@ export async function getERC721Balances(
             params.append('contractAddress', contractAddress);
         }
 
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+        };
+
+        if (API_KEY && API_KEY !== 'your_api_key_here') {
+            headers['x-glacier-api-key'] = API_KEY;
+        }
+
         const response = await fetch(
             `${API_BASE_URL}/v1/chains/${CHAIN_ID}/addresses/${address}/balances:listErc721?${params}`,
-            {
-                headers: {
-                    'x-glacier-api-key': API_KEY,
-                    'Content-Type': 'application/json',
-                },
-            }
+            { headers }
         );
 
         if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`Glacier API Error ${response.status}:`, errorText);
             throw new Error(`API Error: ${response.status} ${response.statusText}`);
         }
 
@@ -49,14 +54,17 @@ export async function getERC721Balances(
  */
 export async function getCollectionMetadata(contractAddress: string): Promise<Collection | null> {
     try {
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+        };
+
+        if (API_KEY && API_KEY !== 'your_api_key_here') {
+            headers['x-glacier-api-key'] = API_KEY;
+        }
+
         const response = await fetch(
             `${API_BASE_URL}/v1/chains/${CHAIN_ID}/contracts/${contractAddress}`,
-            {
-                headers: {
-                    'x-glacier-api-key': API_KEY,
-                    'Content-Type': 'application/json',
-                },
-            }
+            { headers }
         );
 
         if (!response.ok) {

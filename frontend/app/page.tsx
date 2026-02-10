@@ -101,33 +101,95 @@ export default function Home() {
         </section>
 
         {/* Featured Collection Grid */}
-        <section>
-          <div className="flex items-center justify-between mb-12">
-            <h2 className="text-4xl font-black uppercase italic tracking-tighter text-gray-900 text-left">Drops</h2>
-            <Link href="/dashboard" className="text-avax-red font-bold uppercase tracking-widest text-sm hover:underline">View All Collection &rarr;</Link>
+        <section id="drops" className="relative">
+          <div className="absolute -left-20 top-0 w-64 h-64 bg-avax-red/5 rounded-full blur-[100px] -z-10" />
+
+          <div className="flex flex-col md:flex-row items-baseline justify-between mb-16 gap-4">
+            <div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="flex items-center gap-3 mb-4"
+              >
+                <div className="w-12 h-[1px] bg-avax-red" />
+                <span className="text-avax-red font-mono text-xs font-black uppercase tracking-[0.3em]">Live Inventory</span>
+              </motion.div>
+              <h2 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter text-gray-900 leading-none">
+                Exclusive <span className="text-avax-red">Drops</span>.
+              </h2>
+            </div>
+            <Link href="/dashboard" className="group flex items-center gap-3 text-gray-400 hover:text-avax-red transition-all font-bold uppercase tracking-widest text-xs">
+              Explore All Artifacts
+              <span className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-avax-red group-hover:bg-avax-red group-hover:text-white transition-all">
+                &rarr;
+              </span>
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {FEATURED_FIGURES.map((figure, i) => (
               <motion.div
                 key={figure.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group relative bg-white rounded-[2.5rem] p-6 shadow-soft hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-avax-red/5"
+                transition={{ delay: i * 0.1, duration: 0.8 }}
+                className="group relative"
               >
-                <div className="aspect-[4/5] bg-gray-50 rounded-[2rem] mb-6 overflow-hidden relative">
-                  <div className="absolute inset-0 flex items-center justify-center text-7xl filter drop-shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
-                    {i === 0 ? '🤖' : i === 1 ? '🧬' : '👾'}
+                {/* Card Outer Glow */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-avax-red/20 to-avax-red-dark/20 rounded-[2.5rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="relative bg-white rounded-[2.5rem] p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 group-hover:border-avax-red/10 transition-all duration-500">
+                  {/* Image Container */}
+                  <div className="aspect-[4/5] bg-gray-50 rounded-[2rem] mb-6 overflow-hidden relative">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+
+                    {/* Placeholder Emoji for now, but styled better */}
+                    <div className="absolute inset-0 flex items-center justify-center text-8xl filter drop-shadow-2xl transition-all duration-700 group-hover:scale-110 group-hover:rotate-6">
+                      {i === 0 ? '🤖' : i === 1 ? '🧬' : '👾'}
+                    </div>
+
+                    {/* Badge */}
+                    <div className={`absolute top-4 right-4 z-20 backdrop-blur-md px-4 py-2 rounded-2xl text-[10px] font-black uppercase tracking-[0.1em] shadow-lg border border-white/50 ${figure.status === 'available'
+                        ? 'bg-green-500/10 text-green-600'
+                        : 'bg-gray-500/10 text-gray-500'
+                      }`}>
+                      <div className="flex items-center gap-2">
+                        <span className={`w-1.5 h-1.5 rounded-full ${figure.status === 'available' ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`} />
+                        {figure.status === 'available' ? 'Verified Mint' : 'Archived'}
+                      </div>
+                    </div>
+
+                    {/* Hover Stats Overlay */}
+                    <div className="absolute bottom-6 left-6 right-6 z-20 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      <div className="bg-white/80 backdrop-blur-xl p-4 rounded-2xl border border-white/50 shadow-2xl">
+                        <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
+                          <span>Power Level</span>
+                          <span className="text-avax-red">88%</span>
+                        </div>
+                        <div className="w-full h-1 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-avax-red w-[88%]" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className={`absolute top-4 right-4 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.1em] shadow-sm ${figure.status === 'available' ? 'bg-green-500/10 text-green-600' : 'bg-gray-500/10 text-gray-500'
-                    }`}>
-                    {figure.status === 'available' ? 'AvalaFlow Secured' : 'Sold Out'}
+
+                  {/* Metadata */}
+                  <div className="px-2">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-2xl font-black uppercase italic text-gray-900 group-hover:text-avax-red transition-colors">{figure.name}</h3>
+                      <span className="font-mono text-[10px] font-bold text-gray-400 bg-gray-100 px-2 py-1 rounded-lg">#00{figure.id}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-avax-red" />
+                      <p className="text-xs font-mono text-gray-400 uppercase tracking-widest">{figure.collection}</p>
+                    </div>
                   </div>
+
+                  {/* Action Link */}
+                  <Link href="/scan" className="absolute inset-0 z-30" />
                 </div>
-                <h3 className="text-2xl font-black uppercase italic text-gray-900 mb-1">{figure.name}</h3>
-                <p className="text-sm font-mono text-gray-400 uppercase tracking-widest">{figure.collection}</p>
               </motion.div>
             ))}
           </div>
