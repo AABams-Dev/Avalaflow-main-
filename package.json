@@ -1,13 +1,16 @@
 {
     "name": "avalaflow-monorepo",
     "private": true,
+    "workspaces": [
+        "frontend",
+        "contracts"
+    ],
     "scripts": {
-        "install:all": "npm install --legacy-peer-deps && npm --prefix frontend install --legacy-peer-deps",
         "build": "npm --prefix frontend run build",
         "dev": "npm --prefix frontend run dev",
-        "start": "npm --prefix frontend run start",
-        "lint": "npm --prefix frontend run lint",
-        "contracts:compile": "npm --prefix contracts run compile",
-        "contracts:test": "npm --prefix contracts run test"
+        "lint": "npm --prefix frontend run lint"
+    },
+    "dependencies": {
+        "next": "16.1.6"
     }
 }
