@@ -30,65 +30,45 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                // Handle window.ethereum conflicts pre-emptively
+                try {
+                  const originalEth = window.ethereum;
+                  Object.defineProperty(window, 'ethereum', {
+                    get() { return window._eth || originalEth; },
+                    set(v) { window._eth = v; },
+                    configurable: true,
+                    enumerable: true
+                  });
+                } catch (e) { /* ignore if already defined as non-configurable */ }
+
                 const originalError = console.error;
                 const originalWarn = console.warn;
                 
-                // Intercept console errors/warnings from extensions and third-party noise
                 console.error = function(...args) {
                   const msg = args.join(' ').toLowerCase();
-                  if (
-                    msg.includes('chrome-extension://') || 
-                    msg.includes('extension') || 
-                    msg.includes('ethereum') ||
-                    msg.includes('cross-origin-opener-policy') ||
-                    msg.includes('coop')
-                  ) {
-                    return;
-                  }
+                  if (msg.includes('chrome-extension://') || msg.includes('extension') || msg.includes('ethereum') || msg.includes('getter') || msg.includes('coop')) return;
                   originalError.apply(console, args);
                 };
 
                 console.warn = function(...args) {
                   const msg = args.join(' ').toLowerCase();
-                  if (
-                    msg.includes('chrome-extension://') || 
-                    msg.includes('extension') ||
-                    msg.includes('cross-origin-opener-policy')
-                  ) {
-                    return;
-                  }
+                  if (msg.includes('chrome-extension://') || msg.includes('extension') || msg.includes('coop')) return;
                   originalWarn.apply(console, args);
                 };
 
-                // Catch uncaught runtime errors
-                window.addEventListener('error', function(event) {
-                  const fileName = event.filename || '';
-                  const message = (event.message || '').toLowerCase();
-                  
-                  if (
-                    fileName.includes('chrome-extension://') || 
-                    message.includes('chrome.runtime') || 
-                    message.includes('ethereum') ||
-                    message.includes('cross-origin-opener-policy') ||
-                    message.includes('getter') // Captures the 'only has a getter' error
-                  ) {
-                    event.stopImmediatePropagation();
-                    event.preventDefault();
+                const handler = function(e) {
+                  const msg = (e.message || e.reason?.message || '').toLowerCase();
+                  const file = e.filename || '';
+                  if (file.includes('chrome-extension://') || msg.includes('ethereum') || msg.includes('getter') || msg.includes('chrome.runtime') || msg.includes('opener-policy')) {
+                    e.stopImmediatePropagation?.();
+                    e.preventDefault?.();
+                    return true;
                   }
-                }, true);
+                };
 
-                // Catch unhandled promise rejections
-                window.addEventListener('unhandledrejection', function(event) {
-                  const reason = event.reason?.stack || event.reason?.message || '';
-                  const msg = reason.toLowerCase();
-                  if (
-                    msg.includes('chrome-extension://') ||
-                    msg.includes('cross-origin-opener-policy')
-                  ) {
-                    event.stopImmediatePropagation();
-                    event.preventDefault();
-                  }
-                }, true);
+                window.addEventListener('error', handler, true);
+                window.addEventListener('unhandledrejection', handler, true);
+                window.onerror = (m, u) => (u?.includes('extension') || m?.toLowerCase?.().includes('ethereum')) ? true : false;
               })();
             `,
           }}
