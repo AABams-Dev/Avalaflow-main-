@@ -2,7 +2,7 @@
 import { useParams } from 'next/navigation'
 import { Navbar } from '@/components/Navbar'
 import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadContract } from 'wagmi'
-import { AVALAFLOW_NFT_ADDRESS, AVALAFLOW_NFT_ABI } from '@/lib/contracts'
+import { AVAFLOW_NFT_ADDRESS, AVAFLOW_NFT_ABI } from '@/lib/contracts'
 
 export default function ScanPage() {
     const params = useParams()
@@ -14,15 +14,15 @@ export default function ScanPage() {
 
     // Check if tag is already used
     const { data: isTagUsed, isLoading: isCheckingTag } = useReadContract({
-        address: AVALAFLOW_NFT_ADDRESS as `0x${string}`,
-        abi: AVALAFLOW_NFT_ABI,
+        address: AVAFLOW_NFT_ADDRESS as `0x${string}`,
+        abi: AVAFLOW_NFT_ABI,
         functionName: 'nfcTagUsed',
         args: [id],
     })
 
     // Mock Data
     const figureData = {
-        name: `Avalaflow Unit #${id ? id.slice(0, 4) : 'UNKNOWN'}`,
+        name: `Avaflow Unit #${id ? id.slice(0, 4) : 'UNKNOWN'}`,
         image: "https://imagedelivery.net/some-hash/public",
         attributes: { Power: 90, Speed: 80, Sync: '0%' }
     }
@@ -30,8 +30,8 @@ export default function ScanPage() {
     const handleMint = () => {
         if (!isConnected) return;
         writeContract({
-            address: AVALAFLOW_NFT_ADDRESS as `0x${string}`,
-            abi: AVALAFLOW_NFT_ABI,
+            address: AVAFLOW_NFT_ADDRESS as `0x${string}`,
+            abi: AVAFLOW_NFT_ABI,
             functionName: 'mint',
             args: [address!, id]
         })

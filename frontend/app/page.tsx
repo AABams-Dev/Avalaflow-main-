@@ -33,7 +33,7 @@ export default function Home() {
               >
                 <Image
                   src="/logo.png"
-                  alt="Avalaflow Logo"
+                  alt="Avaflow Logo"
                   fill
                   className="object-cover"
                 />
@@ -51,7 +51,7 @@ export default function Home() {
               Digital <span className="text-avax-red">Souls</span> for <span className="text-avax-red-dark underline decoration-avax-red/20 underline-offset-8">Physical</span> Relics.
             </h1>
             <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
-              Avalaflow bridges the gap between your physical workspace and the digital realm. Scan, mint, and level up your collectors items on the world&apos;s fastest blockchain.
+              Avaflow bridges the gap between your physical workspace and the digital realm. Scan, mint, and level up your collectors items on the world&apos;s fastest blockchain.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -203,12 +203,12 @@ export default function Home() {
             <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-gray-100">
               <Image
                 src="/logo.png"
-                alt="Avalaflow Logo"
+                alt="Avaflow Logo"
                 fill
                 className="object-cover"
               />
             </div>
-            <span className="text-lg font-bold text-gray-900">Avalaflow</span>
+            <span className="text-lg font-bold text-gray-900">Avaflow</span>
             <span className="text-sm text-gray-400">© 2026</span>
           </div>
           <div className="flex gap-6 text-sm text-gray-500">

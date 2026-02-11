@@ -67,7 +67,7 @@ export default function GenericScanPage() {
                     </div>
 
                     <p className="mt-8 text-gray-500 max-w-sm mx-auto text-sm leading-relaxed">
-                        Hold your physical Avalaflow unit close to the NFC reader on your device to synchronize digital soul.
+                        Hold your physical Avaflow unit close to the NFC reader on your device to synchronize digital soul.
                     </p>
 
                     <button

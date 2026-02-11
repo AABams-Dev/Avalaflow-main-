@@ -2,9 +2,9 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/proxy/Clones.sol";
-import "./AvalaflowAccount.sol";
+import "./AvaflowAccount.sol";
 
-contract AvalaflowFactory {
+contract AvaflowFactory {
     address public immutable accountImplementation;
     address public immutable entryPoint;
 
@@ -12,7 +12,7 @@ contract AvalaflowFactory {
 
     constructor(address _entryPoint) {
         entryPoint = _entryPoint;
-        accountImplementation = address(new AvalaflowAccount());
+        accountImplementation = address(new AvaflowAccount());
     }
 
     function createAccount(address owner, uint256 salt) external returns (address ret) {
@@ -24,7 +24,7 @@ contract AvalaflowFactory {
 
         bytes32 finalSalt = keccak256(abi.encode(owner, salt));
         ret = Clones.cloneDeterministic(accountImplementation, finalSalt);
-        AvalaflowAccount(payable(ret)).initialize(entryPoint, owner);
+        AvaflowAccount(payable(ret)).initialize(entryPoint, owner);
         
         emit AccountCreated(ret, owner);
     }

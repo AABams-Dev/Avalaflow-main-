@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Avalaflow - Physical meets Digital",
+  title: "Avaflow - Physical meets Digital",
   description: "Collect figures, scan via NFC, and own dynamic NFTs on Avalanche.",
 };
 
@@ -30,45 +30,63 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                // Handle window.ethereum conflicts pre-emptively
+                // Pre-emptively handle window.ethereum conflicts to prevent "only has a getter" errors
                 try {
                   const originalEth = window.ethereum;
+                  let _eth = undefined;
                   Object.defineProperty(window, 'ethereum', {
-                    get() { return window._eth || originalEth; },
-                    set(v) { window._eth = v; },
+                    get() { return _eth || window._eth || originalEth; },
+                    set(v) { _eth = v; window._eth = v; },
                     configurable: true,
                     enumerable: true
                   });
-                } catch (e) { /* ignore if already defined as non-configurable */ }
+                } catch (e) {
+                  // If we can't redefine it, we'll at least try to suppress the errors it causes
+                  console.log('Note: window.ethereum is locked by an extension.');
+                }
 
+                // Robust error suppression for browser extensions and common noise
                 const originalError = console.error;
                 const originalWarn = console.warn;
-                
+                const suppressPatterns = [/chrome-extension/i, /extension/i, /ethereum/i, /getter/i, /coop/i, /opener-policy/i, /chrome.runtime/i];
+
+                const shouldSuppress = (args) => {
+                  return args.some(arg => {
+                    const str = typeof arg === 'string' ? arg : (arg?.message || String(arg));
+                    return suppressPatterns.some(pattern => pattern.test(str));
+                  });
+                };
+
                 console.error = function(...args) {
-                  const msg = args.join(' ').toLowerCase();
-                  if (msg.includes('chrome-extension://') || msg.includes('extension') || msg.includes('ethereum') || msg.includes('getter') || msg.includes('coop')) return;
+                  if (shouldSuppress(args)) return;
                   originalError.apply(console, args);
                 };
 
                 console.warn = function(...args) {
-                  const msg = args.join(' ').toLowerCase();
-                  if (msg.includes('chrome-extension://') || msg.includes('extension') || msg.includes('coop')) return;
+                  if (shouldSuppress(args)) return;
                   originalWarn.apply(console, args);
                 };
 
-                const handler = function(e) {
+                const errorHandler = function(e) {
                   const msg = (e.message || e.reason?.message || '').toLowerCase();
                   const file = e.filename || '';
-                  if (file.includes('chrome-extension://') || msg.includes('ethereum') || msg.includes('getter') || msg.includes('chrome.runtime') || msg.includes('opener-policy')) {
+                  if (shouldSuppress([msg, file])) {
                     e.stopImmediatePropagation?.();
                     e.preventDefault?.();
                     return true;
                   }
                 };
 
-                window.addEventListener('error', handler, true);
-                window.addEventListener('unhandledrejection', handler, true);
-                window.onerror = (m, u) => (u?.includes('extension') || m?.toLowerCase?.().includes('ethereum')) ? true : false;
+                window.addEventListener('error', errorHandler, true);
+                window.addEventListener('unhandledrejection', errorHandler, true);
+                
+                // Also patch window.onerror for older error reporting
+                const originalOnerror = window.onerror;
+                window.onerror = function(m, u, l, c, e) {
+                  if (shouldSuppress([m, u])) return true;
+                  if (originalOnerror) return originalOnerror.apply(window, arguments);
+                  return false;
+                };
               })();
             `,
           }}

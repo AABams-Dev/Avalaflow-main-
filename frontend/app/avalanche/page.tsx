@@ -45,7 +45,7 @@ export default function AvalanchePage() {
                         <div className="relative z-10 flex-1">
                             <h2 className="text-3xl font-black mb-6 uppercase italic tracking-tighter">The Avalanche C-Chain</h2>
                             <p className="text-lg opacity-90 mb-8 leading-relaxed">
-                                Avalaflow utilizes the Avalanche C-Chain for smart contract execution. This guarantees high throughput and EVM compatibility, allowing us to leverage the best tools in the Web3 space while providing the reliability our collectors deserve.
+                                Avaflow utilizes the Avalanche C-Chain for smart contract execution. This guarantees high throughput and EVM compatibility, allowing us to leverage the best tools in the Web3 space while providing the reliability our collectors deserve.
                             </p>
                             <a href="https://avax.network" target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 bg-white text-avax-red font-bold rounded-full hover:bg-gray-100 transition-all uppercase text-sm tracking-widest">
                                 Discover Avalanche

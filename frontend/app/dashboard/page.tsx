@@ -2,13 +2,13 @@
 import { Navbar } from '@/components/Navbar'
 import { useAccount } from 'wagmi'
 import { useNFTBalance } from '@/hooks/useNFTBalance'
-import { AVALAFLOW_NFT_ADDRESS } from '@/lib/contracts'
+import { AVAFLOW_NFT_ADDRESS } from '@/lib/contracts'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 export default function Dashboard() {
     const { address, isConnected } = useAccount()
-    const { data: nfts, isLoading } = useNFTBalance(address, AVALAFLOW_NFT_ADDRESS)
+    const { data: nfts, isLoading } = useNFTBalance(address, AVAFLOW_NFT_ADDRESS)
 
     // Derived figures from live data
     const figures = nfts?.map(nft => ({

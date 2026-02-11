@@ -12,12 +12,12 @@ export function Navbar() {
                         <div className="relative w-10 h-10 overflow-hidden rounded-xl shadow-lg shadow-avax-red/20 group-hover:scale-110 transition-all duration-500">
                             <Image
                                 src="/logo.png"
-                                alt="Avalaflow Logo"
+                                alt="Avaflow Logo"
                                 fill
                                 className="object-cover"
                             />
                         </div>
-                        <span className="text-2xl font-black italic tracking-tighter text-gray-900 group-hover:text-avax-red transition-all hidden sm:block">AVALAFLOW</span>
+                        <span className="text-2xl font-black italic tracking-tighter text-gray-900 group-hover:text-avax-red transition-all hidden sm:block">AVAFLOW</span>
                     </Link>
 
                     <div className="flex items-center gap-4 sm:gap-8">

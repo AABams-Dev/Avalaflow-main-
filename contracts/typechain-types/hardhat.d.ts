@@ -94,6 +94,18 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Strings__factory>;
     getContractFactory(
+      name: "AvaflowAccount",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AvaflowAccount__factory>;
+    getContractFactory(
+      name: "AvaflowDynamicNFT",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AvaflowDynamicNFT__factory>;
+    getContractFactory(
+      name: "AvaflowFactory",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AvaflowFactory__factory>;
+    getContractFactory(
       name: "AvalaflowAccount",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.AvalaflowAccount__factory>;
@@ -207,6 +219,21 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Strings>;
     getContractAt(
+      name: "AvaflowAccount",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.AvaflowAccount>;
+    getContractAt(
+      name: "AvaflowDynamicNFT",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.AvaflowDynamicNFT>;
+    getContractAt(
+      name: "AvaflowFactory",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.AvaflowFactory>;
+    getContractAt(
       name: "AvalaflowAccount",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -303,6 +330,18 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Strings>;
     deployContract(
+      name: "AvaflowAccount",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AvaflowAccount>;
+    deployContract(
+      name: "AvaflowDynamicNFT",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AvaflowDynamicNFT>;
+    deployContract(
+      name: "AvaflowFactory",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AvaflowFactory>;
+    deployContract(
       name: "AvalaflowAccount",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.AvalaflowAccount>;
@@ -415,6 +454,21 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Strings>;
+    deployContract(
+      name: "AvaflowAccount",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AvaflowAccount>;
+    deployContract(
+      name: "AvaflowDynamicNFT",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AvaflowDynamicNFT>;
+    deployContract(
+      name: "AvaflowFactory",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AvaflowFactory>;
     deployContract(
       name: "AvalaflowAccount",
       args: any[],

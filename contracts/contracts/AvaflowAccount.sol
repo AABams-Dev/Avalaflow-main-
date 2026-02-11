@@ -20,14 +20,14 @@ struct UserOperation {
     bytes signature;
 }
 
-contract AvalaflowAccount is Initializable {
+contract AvaflowAccount is Initializable {
     using ECDSA for bytes32;
     using MessageHashUtils for bytes32;
 
     address public entryPoint;
     address public owner;
 
-    event AvalaflowAccountInitialized(address indexed entryPoint, address indexed owner);
+    event AvaflowAccountInitialized(address indexed entryPoint, address indexed owner);
 
     modifier onlyEntryPoint() {
         require(msg.sender == entryPoint, "Not EntryPoint");
@@ -47,7 +47,7 @@ contract AvalaflowAccount is Initializable {
     function initialize(address _entryPoint, address _owner) public initializer {
         entryPoint = _entryPoint;
         owner = _owner;
-        emit AvalaflowAccountInitialized(_entryPoint, _owner);
+        emit AvaflowAccountInitialized(_entryPoint, _owner);
     }
 
     receive() external payable {}

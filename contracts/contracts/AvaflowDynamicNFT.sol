@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract AvalaflowDynamicNFT is ERC721URIStorage, AccessControl {
+contract AvaflowDynamicNFT is ERC721URIStorage, AccessControl {
     using Strings for uint256;
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
@@ -28,7 +28,7 @@ contract AvalaflowDynamicNFT is ERC721URIStorage, AccessControl {
     event FigureLeveledUp(uint256 indexed tokenId, uint256 newLevel);
     event ExperienceGained(uint256 indexed tokenId, uint256 amount);
 
-    constructor() ERC721("AvalaflowCollectibles", "AFLO") {
+    constructor() ERC721("AvaflowCollectibles", "AVA") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
         _grantRole(GAME_ROLE, msg.sender);
@@ -72,8 +72,8 @@ contract AvalaflowDynamicNFT is ERC721URIStorage, AccessControl {
 
         FigureStats memory s = stats[tokenId];
         
-        string memory name = string(abi.encodePacked("Avalaflow Unit #", tokenId.toString()));
-        string memory description = "A dynamic Avalaflow collectible that evolves with physical interaction.";
+        string memory name = string(abi.encodePacked("Avaflow Unit #", tokenId.toString()));
+        string memory description = "A dynamic Avaflow collectible that evolves with physical interaction.";
         // Dynamic image based on level could go here
         string memory image = "https://figo-r1.vercel.app/images/molly_base.png"; 
 

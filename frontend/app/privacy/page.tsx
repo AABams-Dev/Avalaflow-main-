@@ -17,14 +17,14 @@ export default function PrivacyPage() {
                         <section>
                             <h2 className="text-xl font-bold text-gray-900 mb-4">1. Data Collection</h2>
                             <p>
-                                Avalaflow is built with privacy-first principles. We do not collect personal names, emails, or physical addresses unless explicitly provided. Our platform primarily interacts with your public wallet address on the Avalanche blockchain.
+                                Avaflow is built with privacy-first principles. We do not collect personal names, emails, or physical addresses unless explicitly provided. Our platform primarily interacts with your public wallet address on the Avalanche blockchain.
                             </p>
                         </section>
 
                         <section>
                             <h2 className="text-xl font-bold text-gray-900 mb-4">2. Blockchain Data</h2>
                             <p>
-                                All minting and transaction data is public on the Avalanche blockchain. This includes your wallet address and the metadata associated with the NFTs you own. This data is permanent and cannot be deleted by Avalaflow.
+                                All minting and transaction data is public on the Avalanche blockchain. This includes your wallet address and the metadata associated with the NFTs you own. This data is permanent and cannot be deleted by Avaflow.
                             </p>
                         </section>
 
